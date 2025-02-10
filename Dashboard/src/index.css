@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+    --font-display: "KodeMono", "sans-serif";
+    --color-purple-*: initial;
+    /* remove all purple colors */
+    --color-purple: rgb(47, 0, 255);
+    --color-green-*: initial;
+    --color-green: rgb(0, 195, 0);
+}
+
+@font-face {
+    font-family: 'KodeMono';
+    src: url('./assets/fonts/KodeMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* will keep the content scrollable while hiding the scrollbar. */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+}

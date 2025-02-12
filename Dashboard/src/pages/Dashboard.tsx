@@ -5,6 +5,17 @@ import { IoMdTrendingUp } from "react-icons/io"
 import { motion } from 'motion/react';
 import { BarChart, DoughnutChart } from "../components/Charts";
 import { BiMaleFemale } from "react-icons/bi";
+import DashboardTable from "../components/DashboardTable";
+
+const transactions = Array.from({ length: 5 }, ((_, index: number) => {
+  return {
+    id: index + 1 + 'ajhbds',
+    amount: 5000 * index,
+    quantity: 2 * (index + 3),
+    discount: 500,
+    status: "ercjireh"
+  }
+}))
 const Dashboard = () => {
   return (
     <div className="">
@@ -21,7 +32,7 @@ const Dashboard = () => {
         </div>
       </header>
       <main>
-        <section className="grid grid-cols-4 gap-5 px-1">
+        <section className="grid grid-cols-4 gap-5 px-4">
           <WidgetItem heading="Revenue" percent={40} amount={true} value={340000} />
           <WidgetItem heading="Users" percent={-14} amount={false} value={400} />
           <WidgetItem heading="Transactions" percent={80} amount={false} value={23000} />
@@ -53,16 +64,18 @@ const Dashboard = () => {
         </section>
         <div className="my-5">
           <section className="grid grid-cols-[1fr_3fr] gap-2 px-2">
-            <div className="relative p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-start items-center">
+            <div className="relative p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-center items-center">
               <h1 className="p-1">GENDER RATIO</h1>
-              <DoughnutChart labels={["Female","Male"]} bgColor={["pink","blue"]} data={[20,40]} cutout={90}/>
+              <DoughnutChart labels={["Female", "Male"]} bgColor={["pink", "blue"]} data={[20, 40]} cutout={90} />
               <p className="absolute inset-0 flex justify-center items-center">
                 <BiMaleFemale />
               </p>
             </div>
-            <div className="p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col items-start justify-start">
+            <div className="max-h-[70vh] overflow-y-auto p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col items-start justify-start">
               <h1 className="p-1">TOP TRANSACTION</h1>
-              {/* table */}
+              <div className="mx-auto w-full">
+                {<DashboardTable data={transactions} />}
+              </div>
             </div>
           </section>
         </div>
@@ -79,7 +92,7 @@ interface WidgetItemProps {
 }
 
 const WidgetItem = (props: WidgetItemProps) => (
-  <div className="shadow-md p-2 bg-slate-100 rounded-md mx-auto flex items-center gap-1">
+  <div className="shadow-md p-2 bg-slate-100 rounded-md mx-auto flex justify-around items-center gap-1 w-full">
     <div className="flex flex-col">
       <h3 className="text-sm"
       >{props.heading}</h3>

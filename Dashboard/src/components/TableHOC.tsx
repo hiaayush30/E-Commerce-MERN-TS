@@ -19,7 +19,7 @@ function TableHOC<T extends Object>(columns: Column<T>[],
                         {headerGroups.map((headerGroup)=>{
                             return <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map(column=>(
-                                    <th {...column.getHeaderProps()} className='p-3 bg-blue-300 text-xl'>
+                                    <th {...column.getHeaderProps()} className='max-sm:p-2 p-3 bg-blue-300 text-xl'>
                                         {column.render("Header")}
                                     </th>
                                 ))}

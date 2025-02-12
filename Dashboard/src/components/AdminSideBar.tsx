@@ -11,7 +11,7 @@ import { IconType } from "react-icons";
 
 const AdminSideBar = () => {
   return (
-    <aside className="w-full flex flex-col bg-[#E8F9FF]">
+    <aside className="w-full flex flex-col bg-[#E8F9FF] h-full">
       <h2 className="text-3xl p-2 font-semibold">Logo.</h2>
       <div className="ml-5 mr-3">
         <h3 className="text-lg mt-2">DASHBOARD</h3>

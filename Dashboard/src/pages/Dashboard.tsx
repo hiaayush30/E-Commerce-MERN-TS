@@ -32,15 +32,15 @@ const Dashboard = () => {
         </div>
       </header>
       <main>
-        <section className="grid grid-cols-4 gap-5 px-4">
+        <section className="grid grid-cols-4 gap-5 px-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
           <WidgetItem heading="Revenue" percent={40} amount={true} value={340000} />
           <WidgetItem heading="Users" percent={-14} amount={false} value={400} />
           <WidgetItem heading="Transactions" percent={80} amount={false} value={23000} />
           <WidgetItem heading="Products" percent={30} amount={false} value={1000} />
         </section>
         <section className="my-5">
-          <div className="grid grid-cols-[3fr_1fr] gap-2 px-2">
-            <div className="p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-start items-center">
+          <div className="grid grid-cols-[3fr_1fr] max-lg:grid-cols-1 gap-2 px-2">
+            <div className="p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md flex flex-col justify-start items-center">
               REVENUE AND TRANSACTIONS
               <BarChart data_1={[300, 144, 433, 655, 237, 755, 190]}
                 data_2={[200, 444, 343, 556, 778, 455, 990]}
@@ -50,7 +50,7 @@ const Dashboard = () => {
                 bgColor2="rgba(53,162,235,0.8)"
               />
             </div>
-            <div className="mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-center items-center">
+            <div className="mx-auto bg-slate-100 w-full py-10 rounded-md flex flex-col justify-center items-center">
               <h2 className="mb-5 text-2xl p-1">INVENTORY</h2>
               <InventoryItem name="Laptops" color="green" percent={40} />
               <InventoryItem name="Shoes" color="orange" percent={100} />
@@ -63,17 +63,19 @@ const Dashboard = () => {
           </div>
         </section>
         <div className="my-5">
-          <section className="grid grid-cols-[1fr_3fr] gap-2 px-2">
-            <div className="relative p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-center items-center">
+          <section className="grid grid-cols-[1fr_3fr] gap-2 px-2 max-lg:grid-cols-1">
+            <div className="relative p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md flex flex-col justify-center items-center">
               <h1 className="p-1">GENDER RATIO</h1>
-              <DoughnutChart labels={["Female", "Male"]} bgColor={["pink", "blue"]} data={[20, 40]} cutout={90} />
+              <div>
+                <DoughnutChart labels={["Female", "Male"]} bgColor={["pink", "blue"]} data={[20, 40]} cutout={90} />
+              </div>
               <p className="absolute inset-0 flex justify-center items-center">
                 <BiMaleFemale />
               </p>
             </div>
-            <div className="max-h-[70vh] overflow-y-auto p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col items-start justify-start">
+            <div className="max-h-[70vh] overflow-y-auto p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md py-10 flex flex-col items-start justify-start">
               <h1 className="p-1">TOP TRANSACTION</h1>
-              <div className="mx-auto w-full">
+              <div className="mx-auto w-full overflow-y-scroll .scrollbar-hide">
                 {<DashboardTable data={transactions} />}
               </div>
             </div>
@@ -92,7 +94,7 @@ interface WidgetItemProps {
 }
 
 const WidgetItem = (props: WidgetItemProps) => (
-  <div className="shadow-md p-2 bg-slate-100 rounded-md mx-auto flex justify-around items-center gap-1 w-full">
+  <div className="shadow-md p-2 bg-slate-100 rounded-md mx-auto flex justify-around items-center gap-1 w-full max-sm:w-[80%]">
     <div className="flex flex-col">
       <h3 className="text-sm"
       >{props.heading}</h3>

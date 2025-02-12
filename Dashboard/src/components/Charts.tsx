@@ -8,8 +8,13 @@ import {
     Legend,
     ChartData,
     ChartOptions,
+    ArcElement
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
@@ -94,3 +99,39 @@ export function BarChart(
     return <Bar options={options} data={data} />;
 }
 
+
+interface DoughnutChartProps {
+    data: Array<number>;
+    bgColor: string[];
+    labels: string[];
+    cutout?:number|string, //nothing in center of pie
+    legends?:boolean;
+    offset?:number
+}
+export function DoughnutChart({ labels,data,legends=true,bgColor,cutout,offset=0 }: DoughnutChartProps) {
+    const doughnutData: ChartData<'doughnut', number[], string> = {
+        labels,
+        datasets: [
+            {
+                data,
+                backgroundColor:bgColor,
+                borderWidth:0,
+                offset,
+            }
+        ]
+    }
+    const doughnutOptions: ChartOptions<'doughnut'> = {
+         responsive:true,
+         plugins:{
+            legend:{
+                display:legends,
+                position:'bottom',
+                labels:{
+                    padding:40
+                }
+            }
+         },
+         cutout
+    }
+    return <Doughnut data={doughnutData} options={doughnutOptions} />;
+}

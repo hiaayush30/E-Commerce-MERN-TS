@@ -3,7 +3,8 @@ import { IoMdNotificationsOutline, IoMdTrendingDown } from "react-icons/io";
 import ProfilePic from '../assets/profile.jpeg';
 import { IoMdTrendingUp } from "react-icons/io"
 import { motion } from 'motion/react';
-import { BarChart } from "../components/Charts";
+import { BarChart, DoughnutChart } from "../components/Charts";
+import { BiMaleFemale } from "react-icons/bi";
 const Dashboard = () => {
   return (
     <div className="">
@@ -30,12 +31,12 @@ const Dashboard = () => {
           <div className="grid grid-cols-[3fr_1fr] gap-2 px-2">
             <div className="p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-start items-center">
               REVENUE AND TRANSACTIONS
-              <BarChart data_1={[300,144,433,655,237,755,190]}
-              data_2={[200,444,343,556,778,455,990]}
-              title_1="Revenue"
-              title_2="Transactions"
-              bgColor1="rgb(0,115,255)"
-              bgColor2="rgba(53,162,235,0.8)"
+              <BarChart data_1={[300, 144, 433, 655, 237, 755, 190]}
+                data_2={[200, 444, 343, 556, 778, 455, 990]}
+                title_1="Revenue"
+                title_2="Transactions"
+                bgColor1="rgb(0,115,255)"
+                bgColor2="rgba(53,162,235,0.8)"
               />
             </div>
             <div className="mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-center items-center">
@@ -50,6 +51,21 @@ const Dashboard = () => {
             </div>
           </div>
         </section>
+        <div className="my-5">
+          <section className="grid grid-cols-[1fr_3fr] gap-2 px-2">
+            <div className="relative p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col justify-start items-center">
+              <h1 className="p-1">GENDER RATIO</h1>
+              <DoughnutChart labels={["Female","Male"]} bgColor={["pink","blue"]} data={[20,40]} cutout={90}/>
+              <p className="absolute inset-0 flex justify-center items-center">
+                <BiMaleFemale />
+              </p>
+            </div>
+            <div className="p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md min-h-[50vh] flex flex-col items-start justify-start">
+              <h1 className="p-1">TOP TRANSACTION</h1>
+              {/* table */}
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   )
@@ -83,7 +99,7 @@ const WidgetItem = (props: WidgetItemProps) => (
       }}
       animate={{
         background: `conic-gradient(
-        hsl(${props.percent*4}%,${props.percent}%,50%) ${3.16 * Math.abs(props.percent)}deg,
+        hsl(${props.percent * 4}%,${props.percent}%,50%) ${3.16 * Math.abs(props.percent)}deg,
         rgb(226, 232, 240) 0`
       }}
       transition={{
@@ -99,30 +115,30 @@ const WidgetItem = (props: WidgetItemProps) => (
 interface InventoryProps {
   name: string;
   percent: number;
-  color:string
+  color: string
 }
-const InventoryItem = ({name,percent}:InventoryProps) => (
-       <div className="flex gap-5 items-center">
-        <h3 className="text-sm">{name}</h3>
-        <div>
-          <motion.div className="w-18 h-2 relative bg-slate-300 rounded-lg">
-            <motion.div
-            initial={{
-              backgroundColor:`hsl(0%,0%,0%)`,
-              width:`0%`
-            }}
-            animate={{
-              backgroundColor:`hsl(${percent*3}%,${percent}%,50%)`,
-              width:`${percent}%`
-            }}
-            transition={{
-              duration:1
-            }}
-            className={`absolute rounded-lg h-2`}></motion.div>
-          </motion.div>
-        </div>
-        <span className="text-sm">{percent}%</span>
-       </div>
-  )
+const InventoryItem = ({ name, percent }: InventoryProps) => (
+  <div className="flex gap-5 items-center">
+    <h3 className="text-sm">{name}</h3>
+    <div>
+      <motion.div className="w-18 h-2 relative bg-slate-300 rounded-lg">
+        <motion.div
+          initial={{
+            backgroundColor: `hsl(0%,0%,0%)`,
+            width: `0%`
+          }}
+          animate={{
+            backgroundColor: `hsl(${percent * 3}%,${percent}%,50%)`,
+            width: `${percent}%`
+          }}
+          transition={{
+            duration: 1
+          }}
+          className={`absolute rounded-lg h-2`}></motion.div>
+      </motion.div>
+    </div>
+    <span className="text-sm">{percent}%</span>
+  </div>
+)
 
 export default Dashboard

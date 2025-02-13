@@ -5,7 +5,7 @@ import { IoMdTrendingUp } from "react-icons/io"
 import { motion } from 'motion/react';
 import { BarChart, DoughnutChart } from "../components/Charts";
 import { BiMaleFemale } from "react-icons/bi";
-import DashboardTable from "../components/DashboardTable";
+import DashboardTable from "../components/tables/DashboardTable";
 
 const transactions = Array.from({ length: 5 }, ((_, index: number) => {
   return {
@@ -75,7 +75,7 @@ const Dashboard = () => {
             </div>
             <div className="max-h-[70vh] overflow-y-auto p-1 text-2xl mx-auto bg-slate-100 w-full rounded-md py-10 flex flex-col items-start justify-start">
               <h1 className="p-1">TOP TRANSACTION</h1>
-              <div className="mx-auto w-full overflow-y-scroll .scrollbar-hide">
+              <div className="mx-auto w-full overflow-y-auto .scrollbar-hide">
                 {<DashboardTable data={transactions} />}
               </div>
             </div>

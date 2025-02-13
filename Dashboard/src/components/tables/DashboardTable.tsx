@@ -1,5 +1,5 @@
 import { Column } from "react-table";
-import TableHOC from "./TableHOC"
+import TableHOC from "../TableHOC"
 
 interface DataType{
     id:string;
@@ -33,8 +33,8 @@ const columns:Column<DataType>[]=[
 ]
 
 const DashboardTable = ({data=[]}:{data:DataType[]}) => {
-
-  return TableHOC<DataType>(columns,data,"transactionBox","Top Transaction")();
+    
+  return TableHOC<DataType>(columns,data,"transactionBox")();
 }
 
 export default DashboardTable

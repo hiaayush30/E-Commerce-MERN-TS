@@ -1,0 +1,12 @@
+.productsTable{
+    /* background-color: rgba(252, 251, 250, 0.74); */
+    border-radius: 5;
+}
+
+.productsTableRow {
+    border-bottom: 1px solid black;
+}
+
+.productsTableTableData{
+    padding: 10px 10px;
+}

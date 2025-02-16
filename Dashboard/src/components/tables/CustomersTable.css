@@ -1,0 +1,12 @@
+.customersTable{
+    background-color: rgba(252, 251, 250, 0.74);
+}
+
+.customersTableRow {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.customersTableTableData{
+    padding: 10px 10px;
+}

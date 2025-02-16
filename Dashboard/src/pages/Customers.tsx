@@ -1,8 +1,14 @@
+import CustomersTable from "../components/tables/CustomersTable"
 
 const Customers = () => {
   return (
-    <div className="">
-      Customers
+    <div className="p-8">
+      <h1 className="text-2xl font-semibold my-5">
+        Customers
+      </h1>
+      <div>
+        <CustomersTable/>
+      </div>
     </div>
   )
 }

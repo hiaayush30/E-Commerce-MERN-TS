@@ -11,9 +11,10 @@ const arr = Array.from({ length: 50 }, (_, index) => {
         price: Math.ceil(Math.random() * 2000),
         stock: index,
         action: <Link className="bg-blue-200 p-1 rounded-lg hover:bg-blue-100"
-        to={''}>Manage</Link>
+        to={'/admin/product/'+index}>Manage</Link>
     })
 })
+
 interface DataType {
     photo: ReactElement;
     name: string;

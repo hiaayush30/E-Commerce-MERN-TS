@@ -9,6 +9,7 @@ function TableHOC<T extends Object>(columns: Column<T>[],
         getTableProps,
         headerGroups,
         page,
+        rows,
         prepareRow, nextPage, previousPage, canNextPage, canPreviousPage
         , pageCount, state: { pageIndex }, gotoPage } = useTable({ columns, data, initialState: { pageSize: 5 } }, useSortBy, usePagination);
 
@@ -31,7 +32,17 @@ function TableHOC<T extends Object>(columns: Column<T>[],
                         })}
                     </thead>
                     <tbody {...getTableBodyProps()} className={`${heading}+"Body`}>
-                        {page.map(row => {
+                        {showPagination && page.map(row => {
+                            prepareRow(row)
+                            return <tr {...row.getRowProps()} className={`${heading + "Row"} text-center`}>
+                                {row.cells.map(cell => (
+                                    <td {...cell.getCellProps()} className={`${heading + "TableData"} text-lg`}>
+                                        {cell.render('Cell')}
+                                    </td>
+                                ))}
+                            </tr>
+                        })}
+                        {!showPagination && rows.map(row => {
                             prepareRow(row)
                             return <tr {...row.getRowProps()} className={`${heading + "Row"} text-center`}>
                                 {row.cells.map(cell => (

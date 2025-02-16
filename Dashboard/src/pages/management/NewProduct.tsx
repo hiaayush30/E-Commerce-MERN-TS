@@ -6,7 +6,15 @@ const NewProduct = () => {
   const [stock,setStock]=useState(0);
   const [photo,setPhoto]=useState<string>("");
   const changeImageHandler = async (e:ChangeEvent<HTMLInputElement>)=>{
-    
+    if(!e.target.files?.[0]) return;
+    const file:File=e.target.files[0];
+    const reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file);
+      reader.onloadend=()=>{
+        if(typeof reader.result == 'string') setPhoto(reader.result);
+      }
+    }
   }
   return (
     <article className="flex justify-center items-center min-h-screen">

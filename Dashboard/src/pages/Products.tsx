@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa"
 
 const Products = () => {
   return (
-    <div className="p-10">
+    <div className="p-10 h-screen overflow-y-auto">
       <div className="flex items-center justify-between my-5">
         <h1 className="text-2xl font-semibold my-1">Products</h1>
         <Link className="bg-red-700 text-white rounded-full p-2"

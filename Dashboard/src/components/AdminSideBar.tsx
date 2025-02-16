@@ -23,9 +23,9 @@ const AdminSideBar = () => {
         </ul>
         <h3 className="mt-3">CHARTS</h3>
         <ul className="mr-2">
-          <SidebarOptions icon={FaChartBar} text="Bar" url="/admin/bar" />
-          <SidebarOptions icon={FaChartPie} text="Pie" url="/admin/pie" />
-          <SidebarOptions icon={FaChartLine} text="Line" url="/admin/line" />
+          <SidebarOptions icon={FaChartBar} text="Bar" url="/admin/charts/bar" />
+          <SidebarOptions icon={FaChartPie} text="Pie" url="/admin/charts/pie" />
+          <SidebarOptions icon={FaChartLine} text="Line" url="/admin/charts/line" />
         </ul>
         <h3 className="mt-3">APPS</h3>
         <ul className="mr-2">

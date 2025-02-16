@@ -14,7 +14,7 @@ interface DataType{
 }
 const data:DataType[]=Array.from({length:20},()=>{
     return ({
-        avatar:<img className="h-14 w-14 mx-auto" src="https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp"/>,
+        avatar:<img className="h-14 w-14 rounded-full object-cover mx-auto" src="https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp"/>,
         name:"Bob",
         gender:"male",
         email:"bob@gmail.com",
@@ -51,7 +51,7 @@ const columns:Column<DataType>[]=[
 
 const CustomersTable = () => {
   return (
-    TableHOC(columns,data,"customersTable")()
+    TableHOC(columns,data,"customersTable",true)()
   )
 }
 

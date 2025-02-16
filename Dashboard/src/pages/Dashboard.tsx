@@ -18,7 +18,7 @@ const transactions = Array.from({ length: 5 }, ((_, index: number) => {
 }))
 const Dashboard = () => {
   return (
-    <div className="">
+    <div className="h-screen overflow-y-auto">
       <header className="flex  justify-around items-center w-[95%] mx-auto py-1 pb-1 border-b-1 mb-5">
         <div className="flex gap-1 items-center w-[85%]">
           <IoSearch className="text-xl" />

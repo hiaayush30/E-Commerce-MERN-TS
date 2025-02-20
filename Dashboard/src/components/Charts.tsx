@@ -8,12 +8,15 @@ import {
     Legend,
     ChartData,
     ChartOptions,
-    ArcElement
+    ArcElement,
+    PointElement,
+    LineElement,
+    Filler
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend,PointElement,LineElement,Filler);
 
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -106,7 +109,7 @@ interface DoughnutChartProps {
     labels: string[];
     cutout?:number|string, //nothing in center of pie
     legends?:boolean;
-    offset?:number
+    offset?:number|number[]
 }
 export function DoughnutChart({ labels,data,legends=true,bgColor,cutout,offset=0 }: DoughnutChartProps) {
     const doughnutData: ChartData<'doughnut', number[], string> = {
@@ -134,4 +137,95 @@ export function DoughnutChart({ labels,data,legends=true,bgColor,cutout,offset=0
          cutout
     }
     return <Doughnut data={doughnutData} options={doughnutOptions} />;
+}
+
+interface PieChartProps {
+    data: Array<number>;
+    bgColor: string[];
+    labels: string[];
+    offset?:number[]
+}
+
+export function PieChart({ labels,data,bgColor,offset }: PieChartProps) {
+    const pieData: ChartData<'pie', number[], string> = {
+        labels,
+        datasets: [
+            {
+                data,
+                backgroundColor:bgColor,
+                borderWidth:1,
+                offset,
+            }
+        ]
+    }
+    const pieOptions: ChartOptions<'pie'> = {
+         responsive:true,
+         plugins:{
+            legend:{
+                display:false,
+                // position:'bottom',
+                // labels:{
+                //     padding:40
+                // }
+            }
+         },
+         offset
+    }
+    return <Pie data={pieData} options={pieOptions} />;
+}
+
+interface LineChartProps {
+    label:string;
+    data: Array<number>;
+    bgColor: string;
+    borderColor:string;
+    labels?: string[];
+}
+
+export function LineChart(
+    { 
+        bgColor,
+        data,
+        label,
+        borderColor,
+        labels = months }: LineChartProps) {
+    const lineChartOptions: ChartOptions<"line"> = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: false,
+                // text: 'Chart.js Bar Chart',
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    };
+
+    const lineChartData: ChartData<"line", number[], string> = {
+        labels,
+        datasets: [
+            {
+                fill:true,
+                label,
+                data,
+                backgroundColor: bgColor,
+                borderColor,
+            }
+        ],
+    };
+    return <Line options={lineChartOptions} data={lineChartData} />;
 }

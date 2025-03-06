@@ -10,7 +10,7 @@ interface UserModel extends Document {
         product: ObjectId
     }],
     role: "customer" | "admin",
-    comparePassword: (password: string) => boolean;
+    comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema<UserModel>({

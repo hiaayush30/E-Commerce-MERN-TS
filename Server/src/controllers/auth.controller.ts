@@ -57,8 +57,47 @@ export const handleSignup = async (req: Request, res: Response): Promise<any> =>
     }
 }
 
-export const handleLogin = async (req: Request, res: Response) => {
-    res.send('login route called');
+const loginSchema = zod.object({
+    email:zod.string().email(),
+    password:zod.string()
+})
+export const handleLogin = async (req: Request, res: Response):Promise<any> => {
+    try {
+        const validBody = loginSchema.safeParse(req.body);
+        if(!validBody.success){
+            return res.status(403).json({
+                message:'invalid request',
+                error:validBody.error.format()
+            })
+        }
+        else{
+            const {email,password} = validBody.data;
+            const user = await User.findOne({
+                email
+            });
+            if(!user){
+                return res.status(400).json({
+                    message:'email not found'
+                })
+            }
+            if(!await user.comparePassword(password)){
+                return res.status(400).json({
+                    message:'incorrect password'
+                })
+            }
+            const {accessToken,refreshToken} = generateTokens(user._id as string);
+            await storeRefreshToken(user._id as string,refreshToken);
+            setCookies(res,accessToken,refreshToken);
+            return res.status(200).json({
+                message:'logged in successfully'
+            })
+        }
+    } catch (error) {
+        console.log('error in login:'+error);
+        return res.status(500).json({
+            message:'internal server error:'
+        })
+    }
 }
 
 export const handleLogout = async (req: Request, res: Response):Promise<any> => {

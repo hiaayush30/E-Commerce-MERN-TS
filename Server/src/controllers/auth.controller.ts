@@ -152,10 +152,21 @@ export const refreshToken = async (req:Request,res:Response):Promise<any> => {
         sameSite:'strict'
     });
     return res.status(200).json({
-        message:'accessToken created successfully'
+        message:'token created successfully'
     })
    } catch (error) {
     console.log('error in refreshToken:' + error);
+        return res.status(500).json({
+            message: "internal server error"
+        })
+   }
+}
+
+export const getProfile = async (req:Request,res:Response):Promise<any>=>{
+    try {
+        
+    } catch (error) {
+        console.log('error in getProfile:' + error);
         return res.status(500).json({
             message: "internal server error"
         })

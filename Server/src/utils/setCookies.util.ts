@@ -11,6 +11,6 @@ export const setCookies = (res:Response,accessToken:string,refreshToken:string)=
         maxAge:7*24*60*60*1000,  //7days
         httpOnly:true,
         secure:process.env.ENVIRONMENT!="development",
-        sameSite:"none"
+        sameSite:"strict"
     })
 }

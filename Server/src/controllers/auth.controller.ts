@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import zod, { string } from 'zod';
+import zod from 'zod';
 import User from "../models/user.model";
 import { generateTokens } from "../utils/jwt.util";
-import { removeRefreshToken, storeRefreshToken } from "../services/redis.service";
+import { redis, removeRefreshToken, storeRefreshToken } from "../services/redis.service";
 import { setCookies } from "../utils/setCookies.util";
 import jwt from 'jsonwebtoken';
 
@@ -89,7 +89,13 @@ export const handleLogin = async (req: Request, res: Response):Promise<any> => {
             await storeRefreshToken(user._id as string,refreshToken);
             setCookies(res,accessToken,refreshToken);
             return res.status(200).json({
-                message:'logged in successfully'
+                message:'logged in successfully',
+                user: {
+                    "name": user.name,
+                    "email": user.email,
+                    "_id": user._id,
+                    "cartItems": user.cartItems
+                }
             })
         }
     } catch (error) {
@@ -118,4 +124,40 @@ export const handleLogout = async (req: Request, res: Response):Promise<any> => 
             message: "internal server error"
         })
     }
+}
+
+//recreate access token
+//if this request fails login again
+export const refreshToken = async (req:Request,res:Response):Promise<any> => {
+   try {
+    const refreshToken = req.cookies['refreshToken'];
+    if(!refreshToken){
+        return res.status(401).json({
+            message:'token not found'
+        })
+    }
+    const {userId} = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET as string) as {userId:string}
+    //we have a valid refreshToken now
+    const storedToken = await redis.get(`refreshToken:${userId}`);
+    if(storedToken !== refreshToken){ //to avoid any cheating
+        return res.status(403).json({
+            message:'invalid refresh token'
+        })
+    }
+    const {accessToken} = generateTokens(userId);
+    res.cookie('accessToken',accessToken,{
+        maxAge:15*60*1000,
+        secure:process.env.ENVIRONMENT != "development",
+        httpOnly:true,
+        sameSite:'strict'
+    });
+    return res.status(200).json({
+        message:'accessToken created successfully'
+    })
+   } catch (error) {
+    console.log('error in refreshToken:' + error);
+        return res.status(500).json({
+            message: "internal server error"
+        })
+   }
 }

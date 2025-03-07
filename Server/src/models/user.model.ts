@@ -1,4 +1,4 @@
-import mongoose, { Document, ObjectId } from "mongoose";
+import mongoose, { ObtainRawDocumentPathType, Types } from "mongoose";
 import { comparePassword, hashPassword } from "../utils/bcrypt.util";
 
 interface UserModel extends Document {
@@ -6,11 +6,13 @@ interface UserModel extends Document {
     email: string;
     password: string,
     cartItems: [{
-        quantity: Number,
-        product: ObjectId
+        quantity: number,
+        product: Types.ObjectId
     }],
     role: "customer" | "admin",
     comparePassword: (password: string) => Promise<boolean>;
+    createdAt:Date;
+    updatedAt:Date;
 }
 
 const userSchema = new mongoose.Schema<UserModel>({

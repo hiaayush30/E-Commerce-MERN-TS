@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request,Response} from 'express'
 import zod from 'zod';
 import User from "../models/user.model";
 import { generateTokens } from "../utils/jwt.util";
@@ -35,9 +35,9 @@ export const handleSignup = async (req: Request, res: Response): Promise<any> =>
             email
         });
         //generate tokens
-        const { accessToken, refreshToken } = generateTokens(user._id as string);
+        const { accessToken, refreshToken } = generateTokens(user._id as unknown as string);
         //store refresh token in redis
-        await storeRefreshToken(user._id as string, refreshToken);
+        await storeRefreshToken(user._id as unknown as string, refreshToken);
         //set cookies
         setCookies(res, accessToken, refreshToken);
         return res.status(201).json({
@@ -85,8 +85,8 @@ export const handleLogin = async (req: Request, res: Response):Promise<any> => {
                     message:'incorrect password'
                 })
             }
-            const {accessToken,refreshToken} = generateTokens(user._id as string);
-            await storeRefreshToken(user._id as string,refreshToken);
+            const {accessToken,refreshToken} = generateTokens(user._id as unknown as string);
+            await storeRefreshToken(user._id as unknown as string,refreshToken);
             setCookies(res,accessToken,refreshToken);
             return res.status(200).json({
                 message:'logged in successfully',
@@ -164,7 +164,10 @@ export const refreshToken = async (req:Request,res:Response):Promise<any> => {
 
 export const getProfile = async (req:Request,res:Response):Promise<any>=>{
     try {
-        
+        return res.status(200).json({
+            message:'user fetched successully',
+            user:req.user
+        })
     } catch (error) {
         console.log('error in getProfile:' + error);
         return res.status(500).json({

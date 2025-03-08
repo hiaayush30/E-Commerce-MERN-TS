@@ -8,19 +8,12 @@ import cookieParser from 'cookie-parser';
 import { productRouter } from './routes/product.route';
 
 import { Types } from 'mongoose';
+import { cartRouter } from './routes/cart.routes';
+import { UserModel } from './models/user.model';
 declare global {
   namespace Express {
     export interface Request {
-      user?: {
-        _id: string;
-        name: string;
-        email: string;
-        cartItems: {
-          quantity: number;
-          product: Types.ObjectId;
-        }[];
-        role: "customer" | "admin";
-      };
+      user?: UserModel;
     }
   }
 }
@@ -43,6 +36,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth',authRouter);
 app.use('/api/product',productRouter);
+app.use('/api/cart',cartRouter);
 
 connectDatabase()
     .then(() => {

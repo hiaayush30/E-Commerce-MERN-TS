@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 
 
-
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         const accessToken = req.cookies['accessToken'];
@@ -20,13 +19,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
             })
         }
         else {
-            req.user = {
-                _id: user._id as unknown as string,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                cartItems: user.cartItems
-            }
+            req.user = user;
             next();
         }
     } catch (error) {

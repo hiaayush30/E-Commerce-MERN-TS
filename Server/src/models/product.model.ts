@@ -40,7 +40,8 @@ const productSchema = new mongoose.Schema<ProductInterface>({
     },
     quantity: {
         type: Number,
-        required: true
+        default:0,
+        min:0
     }
 }, { timestamps: true })
 

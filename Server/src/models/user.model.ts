@@ -1,14 +1,14 @@
-import mongoose, { ObtainRawDocumentPathType, Types } from "mongoose";
+import mongoose, {Document, Types } from "mongoose";
 import { comparePassword, hashPassword } from "../utils/bcrypt.util";
 
-interface UserModel extends Document {
+export interface UserModel extends Document {
     name: string;
     email: string;
     password: string,
-    cartItems: [{
-        quantity: number,
-        product: Types.ObjectId
-    }],
+    cartItems: Array<{
+        quantity: number;
+        product: Types.ObjectId;
+    }>,
     role: "customer" | "admin",
     comparePassword: (password: string) => Promise<boolean>;
     createdAt:Date;

@@ -10,6 +10,7 @@ import { productRouter } from './routes/product.route';
 import { Types } from 'mongoose';
 import { cartRouter } from './routes/cart.routes';
 import { UserModel } from './models/user.model';
+import { couponRouter } from './routes/coupon.route';
 declare global {
   namespace Express {
     export interface Request {
@@ -37,6 +38,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth',authRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart',cartRouter);
+app.use('/api/cart',couponRouter);
 
 connectDatabase()
     .then(() => {

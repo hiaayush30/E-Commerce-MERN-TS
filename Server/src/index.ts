@@ -11,6 +11,8 @@ import { Types } from 'mongoose';
 import { cartRouter } from './routes/cart.routes';
 import { UserModel } from './models/user.model';
 import { couponRouter } from './routes/coupon.route';
+import { orderRouter } from './routes/order.route';
+import { analyticsRouter } from './routes/analytics.route';
 declare global {
   namespace Express {
     export interface Request {
@@ -39,6 +41,8 @@ app.use('/api/auth',authRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart',cartRouter);
 app.use('/api/cart',couponRouter);
+app.use('/api/order',orderRouter);
+app.use('/api/analytics',analyticsRouter);
 
 connectDatabase()
     .then(() => {
